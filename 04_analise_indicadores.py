@@ -1,19 +1,3 @@
-"""
-Passo 4 — Análise de Indicadores e Geração de Gráficos
-
-Produz 6 visualizações salvas em saidas/graficos/, a partir do banco DuckDB
-configurado no passo 3. Todas as análises usam apenas o período 2020-2024
-(anos completos com 26 capitais); 2025 é excluído por estar incompleto.
-
-Indicadores calculados:
-  1. Taxa de Execução média por capital (Pago / Empenhado × 100)
-  2. Ranking de Saúde per capita — empenhado vs pago (2024)
-  3. Ranking de Educação per capita — empenhado vs pago (2024)
-  4. Evolução de Maceió vs. média das capitais em Saúde e Educação
-  5. Heatmap de taxa de execução por função e capital (2024)
-  6. Concentração das subfunções de Saúde em Maceió (2024)
-"""
-
 from pathlib import Path
 
 import duckdb
@@ -72,9 +56,7 @@ def conectar() -> duckdb.DuckDBPyConnection:
     return duckdb.connect(str(DB_PATH), read_only=True)
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 1 — Taxa de execução média por capital (2020-2024)
-# ---------------------------------------------------------------------------
 def grafico_taxa_execucao_media(con: duckdb.DuckDBPyConnection) -> None:
     df = con.execute("""
         SELECT
@@ -135,9 +117,7 @@ def grafico_taxa_execucao_media(con: duckdb.DuckDBPyConnection) -> None:
     print(f"  Salvo: {caminho.name}")
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 2 — Saúde per capita: empenhado vs pago (2024)
-# ---------------------------------------------------------------------------
 def grafico_saude_per_capita(con: duckdb.DuckDBPyConnection) -> None:
     df = con.execute("""
         SELECT
@@ -160,9 +140,7 @@ def grafico_saude_per_capita(con: duckdb.DuckDBPyConnection) -> None:
     )
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 3 — Educação per capita: empenhado vs pago (2024)
-# ---------------------------------------------------------------------------
 def grafico_educacao_per_capita(con: duckdb.DuckDBPyConnection) -> None:
     df = con.execute("""
         SELECT
@@ -222,9 +200,7 @@ def _grafico_per_capita_duplo(
     print(f"  Salvo: {caminho.name}")
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 4 — Evolução Maceió vs. média das capitais em Saúde e Educação
-# ---------------------------------------------------------------------------
 def grafico_evolucao_maceio(con: duckdb.DuckDBPyConnection) -> None:
     df = con.execute("""
         SELECT
@@ -299,9 +275,7 @@ def grafico_evolucao_maceio(con: duckdb.DuckDBPyConnection) -> None:
     print(f"  Salvo: {caminho.name}")
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 5 — Heatmap de taxa de execução por função × capital (2024)
-# ---------------------------------------------------------------------------
 def grafico_heatmap_execucao(con: duckdb.DuckDBPyConnection) -> None:
     # Seleciona as funções com maior volume total de empenhado em 2024
     top_funcoes = con.execute("""
@@ -356,9 +330,7 @@ def grafico_heatmap_execucao(con: duckdb.DuckDBPyConnection) -> None:
     print(f"  Salvo: {caminho.name}")
 
 
-# ---------------------------------------------------------------------------
 # Gráfico 6 — Subfunções de Saúde em Maceió (2024)
-# ---------------------------------------------------------------------------
 def grafico_subfuncoes_saude_maceio(con: duckdb.DuckDBPyConnection) -> None:
     df = con.execute("""
         SELECT
@@ -412,9 +384,7 @@ def grafico_subfuncoes_saude_maceio(con: duckdb.DuckDBPyConnection) -> None:
     print(f"  Salvo: {caminho.name}")
 
 
-# ---------------------------------------------------------------------------
 # Tabelas de texto para o README
-# ---------------------------------------------------------------------------
 def imprimir_tabelas(con: duckdb.DuckDBPyConnection) -> None:
     print("\n--- TABELA: Taxa de Execução Média por Capital (2020-2024) ---")
     df = con.execute("""
