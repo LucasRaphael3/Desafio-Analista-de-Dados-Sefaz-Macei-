@@ -1,12 +1,6 @@
 # Análise de Despesas Públicas das Capitais Brasileiras
 ### Siconfi / FINBRA — Despesas por Função (Anexo I-E) — 2020 a 2025
 
-> **Candidato:** Lucas Raphael  
-> **Vaga:** Estágio em Análise de Dados — Sefaz Maceió  
-> **Prazo de entrega:** 07/07/2026
-
----
-
 ## Sumário
 
 1. [Estrutura do Repositório](#estrutura-do-repositório)
