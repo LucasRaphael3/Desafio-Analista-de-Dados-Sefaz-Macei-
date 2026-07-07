@@ -1,17 +1,3 @@
-"""
-Passo 3 — Configuração do banco analítico DuckDB
-
-Carrega o arquivo finbra_consolidado.parquet em um banco DuckDB persistente
-(finbra.duckdb) e materializa views pré-calculadas que aceleram as consultas
-da etapa de análise.
-
-Por que DuckDB?
-- Roda in-process, sem servidor para instalar ou configurar.
-- Consulta Parquet/CSV diretamente via SQL com vetorização colunar.
-- Suporta janelas, pivots e funções analíticas que simplificam as queries.
-- Performance superior a pandas para agregações em datasets deste porte.
-"""
-
 import duckdb
 from pathlib import Path
 
@@ -27,13 +13,6 @@ def criar_banco() -> duckdb.DuckDBPyConnection:
 
 
 def criar_views(con: duckdb.DuckDBPyConnection) -> None:
-    """
-    Registra o Parquet como tabela e cria views temáticas.
-
-    As views filtram 'agregado' fora do tipo_conta para evitar dupla contagem
-    dos totalizadores que o Siconfi inclui no arquivo (ex: 'Despesas Exceto
-    Intraorçamentárias'), conforme orientação do próprio enunciado do desafio.
-    """
 
     # Tabela base — lê direto do Parquet; DuckDB mantém referência lazy.
     con.execute(f"""
