@@ -6,13 +6,6 @@ DADOS_EXTRAIDOS = Path(__file__).parent / "dados_extraidos"
 
 
 def extrair_zips() -> None:
-    """
-    Percorre dados_compactos/<ano>/*.zip e extrai o conteúdo de cada arquivo
-    para dados_extraidos/<ano>/, preservando a estrutura por ano de exercício.
-
-    A pasta de destino é criada automaticamente se não existir.
-    Arquivos já extraídos são sobrescritos para garantir idempotência.
-    """
     zips = sorted(DADOS_COMPACTOS.rglob("*.zip"))
 
     if not zips:
